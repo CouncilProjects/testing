@@ -20,7 +20,13 @@ fn main() {
         "+" => cli.left + cli.right,
         "-" => cli.left - cli.right,
         "*" => cli.left * cli.right,
-        "/" => cli.left / cli.right,
+        "/" => {
+            if cli.right == 0.0 {
+                f64::NAN
+            } else {
+                cli.left / cli.right
+            }
+        }
         _ => panic!("unknown operator"),
     };
     println!("{}", result);
