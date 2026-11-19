@@ -1,5 +1,5 @@
 [package]
-name = "ghact-test"
+name = "calculator-app"
 version = "0.1.0"
 edition = "2024"
 
