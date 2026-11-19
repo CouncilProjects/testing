@@ -1,4 +1,4 @@
-name:build-releash-workflow
+name: build-release-workflow
 on:
   push:
     tags:
