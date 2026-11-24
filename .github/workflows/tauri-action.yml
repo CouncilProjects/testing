@@ -33,10 +33,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
+      
+      #as per https://github.com/android-actions/setup-android
+      - name: Set up JDK 17
+        if: matrix.mobile=='android'
+        uses: actions/setup-java@v6
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-      - name: setup Android SDK
-        if: matrix.mobile == 'android'
-        uses: android-actions/setup-android@v3
+      - name: Setup Android SDK
+        if: matrix.mobile=='android'
+        uses: android-actions/setup-android@v4
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
