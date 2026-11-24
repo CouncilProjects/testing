@@ -46,6 +46,16 @@ jobs:
         if: matrix.mobile=='android'
         uses: android-actions/setup-android@v4
 
+      - name: setup Android signing
+        if: matrix.mobile=='android'
+        run: |
+          cd tauritest/src-tauri/gen/android
+          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" > keystore.properties
+          echo "storePassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> keystore.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> keystore.properties
+          base64 -d <<< "${{ secrets.ANDROID_KEY_BASE64 }}" > $RUNNER_TEMP/keystore.jks
+          echo "storeFile=$RUNNER_TEMP/keystore.jks" >> keystore.properties
+
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:

@@ -1,5 +1,6 @@
-import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -7,12 +8,13 @@ plugins {
     id("rust")
 }
 
-val tauriProperties = Properties().apply {
-    val propFile = file("tauri.properties")
-    if (propFile.exists()) {
-        propFile.inputStream().use { load(it) }
+val tauriProperties =
+    Properties().apply {
+        val propFile = file("tauri.properties")
+        if (propFile.exists()) {
+            propFile.inputStream().use { load(it) }
+        }
     }
-}
 
 android {
     compileSdk = 37
@@ -24,6 +26,20 @@ android {
         targetSdk = 37
         versionCode = tauriProperties.getProperty("tauri.android.versionCode", "1").toInt()
         versionName = tauriProperties.getProperty("tauri.android.versionName", "1.0")
+    }
+    signingConfigs {
+        create("release") {
+            val keystorePropertiesFile = rootProject.file("keystore.properties")
+            val keystoreProperties = Properties()
+            if (keystorePropertiesFile.exists()) {
+                keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+            }
+
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["password"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["password"] as String
+        }
     }
     buildTypes {
         getByName("debug") {
@@ -39,14 +55,15 @@ android {
             }
         }
         getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
             optimization {
-               enable = true
+                enable = true
             }
             proguardFiles(
                 *fileTree(".") {
-                  include("**/*.pro")
-                  exclude("build/**")
-                }.files.toTypedArray()
+                    include("**/*.pro")
+                    exclude("build/**")
+                }.files.toTypedArray(),
             )
         }
     }
