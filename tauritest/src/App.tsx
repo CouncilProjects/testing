@@ -14,7 +14,7 @@ function App() {
 
   return (
     <main className="container">
-      <h1>Version 0.3.0 mobile as well ?</h1>
+      <h1>Version 0.4.0 autosigned</h1>
       <h1>Welcome to Tauri + React</h1>
 
       <div className="row">
