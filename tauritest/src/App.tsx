@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
+import { handleUpdate } from "./updater";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
+  const [progress, setProgress] = useState(-1);
+
+  useEffect(() => {
+
+    handleUpdate((a) => {
+      setProgress(a);
+    })
+  }, []);
+
+
+
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
@@ -29,6 +41,12 @@ function App() {
         </a>
       </div>
       <p>Click on the Tauri, Vite, and React logos to learn more.</p>
+
+      {
+        progress > -1 && <p>
+          <span>PROGRESS: ${progress}%</span>
+        </p>
+      }
 
       <form
         className="row"
