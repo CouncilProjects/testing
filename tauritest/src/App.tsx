@@ -27,7 +27,7 @@ function App() {
 
   return (
     <main className="container">
-      <h1>Version {getVersion()} autosigned test2 </h1>
+      <h1>Version something something  autosigned test2 </h1>
       <h1>Welcome to stuff</h1>
 
       <div className="row">

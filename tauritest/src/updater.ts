@@ -13,8 +13,10 @@ import {
 
 export async function handleUpdate(progressSetter: (a: number) => void) {
   const currentPlatform = platform();
+  console.log(currentPlatform, await getVersion());
   if (['macos', 'windows', 'linux'].includes(currentPlatform)) {
     const update = await check();
+    console.log("needs update : ", update);
     if (update) {
       console.log(
         `found update ${update.version} from ${update.date} with notes ${update.body}`
