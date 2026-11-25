@@ -1,0 +1,17 @@
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "platforms": [
+    "android",
+    "iOS"
+  ],
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "fs:allow-cache-read",
+    "android-installer:allow-can-install",
+    "android-installer:default",
+    "android-installer:allow-request-install-permission"
+  ]
+}
