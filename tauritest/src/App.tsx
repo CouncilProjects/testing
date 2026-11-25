@@ -26,8 +26,8 @@ function App() {
 
   return (
     <main className="container">
-      <h1>Version something something  autosigned test2 </h1>
-      <h1>Welcome to stuff</h1>
+      <h1>My app </h1>
+      <h1>Welcome to my app</h1>
 
       <div className="row">
         <a href="https://vite.dev" target="_blank">
