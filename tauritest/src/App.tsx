@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 import { handleUpdate } from "./updater";
+import { getVersion } from "@tauri-apps/api/app";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
@@ -26,8 +27,8 @@ function App() {
 
   return (
     <main className="container">
-      <h1>Version 0.4.0 autosigned test2 </h1>
-      <h1>Welcome to Tauri + React</h1>
+      <h1>Version {getVersion()} autosigned test2 </h1>
+      <h1>Welcome to stuff</h1>
 
       <div className="row">
         <a href="https://vite.dev" target="_blank">
