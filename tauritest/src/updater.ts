@@ -17,7 +17,7 @@ export async function handleUpdate(progressSetter: (a: number) => void) {
       await update.downloadAndInstall((event) => {
         switch (event.event) {
           case 'Started':
-            contentLength = event.data.contentLength;
+            contentLength = event.data.contentLength || -1;
             console.log(`started downloading ${event.data.contentLength} bytes`);
             break;
           case 'Progress':
